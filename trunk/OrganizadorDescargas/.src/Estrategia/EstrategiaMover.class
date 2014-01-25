@@ -1,0 +1,33 @@
+' Gambas class file
+
+Inherits InterfaceCrearComando
+Private comandotmpMover As New Mover
+
+Public Sub guard(valor As String) As Boolean
+  
+  If valor = ("Mover") Then 
+    Return True
+  Else
+    Return False
+  Endif
+  
+End
+
+Public Sub crearComando(linea As String) As Comando
+  
+  Dim palabras As New String[]
+  Dim listaExtensiones As New String[]
+  
+  palabras = Split(linea, gb.Tab)
+  If palabras.count = 0 Then
+    Return Null
+  Else
+    
+    comandotmpMover.nombre = palabras[0] 'nombre
+    comandotmpMover.RutaDestino = palabras[1] 'carpeta destino
+    listaExtensiones = Split(Replace$(palabras[2], ",", ";"), ";") 'extensiones
+    comandotmpMover.extensiones = listaExtensiones 
+    Return comandotmpMover
+  Endif
+  
+End

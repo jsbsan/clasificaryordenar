@@ -1,0 +1,21 @@
+* Wed Jan 22 2014 Julio Sánchez Berro <jusabejusabe@gmail.com> 0.0.5
+- redirigo a la pagina web del proyecto
+
+* Wed Jan 22 2014 Julio Sánchez Berro <jusabejusabe@gmail.com> 0.0.5
+- Mejoras en el codigo interno: organizado mejor en el constructor de switch para añadir las  estrategias de creacion de comandos
+
+* Mon Jan 20 2014 Julio Sánchez Berro <jusabejusabe@gmail.com> 0.0.4
+- para gambas3.4.2
+
+* Mon Jan 20 2014 Julio Sánchez Berro <jusabejusabe@gmail.com> 0.0.4
+- Mejoras: Bug de nombre de carpetas y archivos con espacios, y definir ruta Origen
+
+* Sun Jan 19 2014 Julio Sánchez Berro <jusabejusabe@gmail.com> 0.0.3
+- Mejoras en el codigo al sustituir Select Case por el patron Switch Strategy
+
+* Sat Jan 18 2014 Julio Sánchez Berro <jusabejusabe@gmail.com> 0.0.1
+- reglas incluidas
+
+* Sat Jan 18 2014 Julio Sánchez Berro <jusabejusabe@gmail.com> 0.0.1
+- Lanzamiento inicial
+

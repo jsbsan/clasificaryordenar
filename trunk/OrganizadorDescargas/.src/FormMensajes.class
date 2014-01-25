@@ -1,0 +1,19 @@
+' Gambas class file
+
+Public Sub TextoMensaje(txt As String)
+  
+  TextAreaMensaje.text = txt
+  
+End
+
+Public Sub Form_Open()
+  
+  Me.Center
+  
+End
+
+Public Sub ToolButtonSalir_Click()
+  
+  Me.Close
+  
+End

@@ -1,0 +1,22 @@
+' Gambas class file
+
+' ------------------------------
+'  usando el patron Singleton
+' ------------------------------
+
+Create Static
+
+Property rutaOrigen As String
+Private hrutaOrigen As String
+
+Private Function rutaOrigen_Read() As String
+  
+  Return hrutaOrigen
+  
+End
+
+Private Sub rutaOrigen_Write(Value As String)
+  
+  hrutaOrigen = Value
+  
+End

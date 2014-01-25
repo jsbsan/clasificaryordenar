@@ -1,0 +1,21 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,89,61)
+  { TextAreaMensaje TextArea
+    MoveScaled(2,6,85,49)
+    ReadOnly = True
+    Wrap = True
+  }
+  { ToolButtonSalir ToolButton
+    MoveScaled(34,56,19,4)
+    Text = ("Salir")
+    Picture = Picture["icon:/16/question"]
+    Border = True
+  }
+  { Label1 Label
+    MoveScaled(2,1,85,5)
+    Text = ("Mensajes")
+    Alignment = Align.Center
+  }
+}

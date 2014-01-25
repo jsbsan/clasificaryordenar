@@ -1,0 +1,15 @@
+Libros	Descargas/Libros	epub;pdf	Mover
+Musica	Descargas/Musica	mp3;ogg	Mover
+Peliculas	Descargas/Peliculas	avi;mp4;mpg	Mover
+Paquetes deb	Descargas/Debian	deb	Mover
+Script de Bash	Descargas/Script	sh	Mover
+Imagenes	Descargas/Imagenes	jpg;png;PNG;jpeg;gif	Mover
+Enlaces Torrent	Descargas/torrent	torrent	Mover
+Borrado de archivos temporales		tmp	Borrar
+Documentos Simple TXT	Descargas/Documentos	txt	Mover
+Documentos Hojas de Calculos	Descargas/Documentos Hojas de Calculo	ods;xlsx;xls	Mover
+Diagramas Dia	Descargas/Diagramas Dias	dia	Mover
+Documentos Writer Word	Descargas/Documentos Odt y Doc	doc;odt	Mover
+Codigos fuentes py	Descargas/codigos fuentes	py;c;cpp	Mover
+Comprimidos	Descargas/Comprimidos	tar;zip;rar;gz	Mover
+Plantillas SVG	Descargas/Plantillas SVG	svg	Mover

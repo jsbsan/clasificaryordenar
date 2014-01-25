@@ -1,0 +1,37 @@
+' Gambas class file
+
+Inherits Comando
+
+Public Sub ejecutar()
+  
+  Dim formularioMensaje As New FormMensajes
+  Dim palabra As String
+  Dim textoSalidaComando As String
+  Dim textoSalidaAcumuladoComando As String
+  Dim lineaComando As String
+  Dim respuesta As Integer
+  
+  If respuesta = 2 Then Return 'no borro
+  
+  For Each palabra In Super.extensiones
+    lineaComando = "rm " & Configuracion.rutaOrigen & "/" & "*." & palabra 
+    
+    Debug "Linea de comando que ejecuto: "; lineaComando
+    
+    respuesta = Message.Question(("El borrado será definitivo:" & "\n" & lineaComando & "\n, ¿esta seguro?"), ("Si, borrar"), ("No, cancelar"))  
+    
+    If respuesta <> 2 Then
+      Shell lineaComando To textoSalidaComando 
+      textoSalidaAcumuladoComando &= textoSalidaComando
+    Endif
+  Next
+  
+  If textoSalidaAcumuladoComando = "" Then 
+    'no ha habido mensajes...
+  Else
+    'mostrar información de los mensajes que han aparecido
+    formularioMensaje.TextoMensaje(textoSalidaAcumuladoComando)
+    formularioMensaje.ShowModal()
+  Endif
+  
+End
