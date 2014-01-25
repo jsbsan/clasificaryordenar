@@ -1,0 +1,33 @@
+' Gambas class file
+
+Inherits InterfaceCrearComando
+Private comandotmpBorrar As New Borrar
+
+Public Sub guard(valor As String) As Boolean
+  
+  If valor = ("Borrar") Then 
+    Return True
+  Else
+    Return False
+  Endif
+  
+End
+
+Public Sub crearComando(linea As String) As Comando
+  
+  Dim palabras As New String[]
+  Dim listaExtensiones As New String[]
+  
+  palabras = Split(linea, gb.Tab)
+  palabras = Split(linea, gb.Tab)
+  If palabras.count = 0 Then
+    Return Null
+  Else
+    comandotmpBorrar.nombre = palabras[0] 'nombre
+    comandotmpBorrar.RutaDestino = ("Borrado definitivo, Cuidado: NO se envia a papelera")
+    listaExtensiones = Split(Replace$(palabras[2], ",", ";"), ";") 'extensiones
+    comandotmpBorrar.extensiones = listaExtensiones 
+    Return comandotmpBorrar
+  Endif
+  
+End 

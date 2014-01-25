@@ -1,0 +1,125 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,95,62)
+  Background = &HFFFFFF&
+  Icon = Picture["OrganizaCarpetas.png"]
+  Resizable = False
+  { Label1 TextLabel
+    MoveScaled(9,1,72,11)
+    Text = ("<h3>Organizador de Descargas</h3>\nAutor: Julio Sánchez Berro<br>\nLicencia: GPL 3.0<br>\n<font color=\"blue\"><u>http://clasificaryordenar.blogspot.com.es</u></font><br>\n")
+    Alignment = Align.Center
+  }
+  { TabStripOrganizador TabStrip
+    MoveScaled(1,13,93,48)
+    Count = 3
+    Index = 0
+    Text = ("Ruta Origen")
+    { ToolButtonUpdate ToolButton
+      MoveScaled(12,35,67,6)
+      Text = ("Update: Comprobar si existe una nueva version del programa")
+      Picture = Picture["icon:/22/important"]
+      Border = True
+    }
+    { Label5 Label
+      MoveScaled(3,5,35,5)
+      Text = ("Ruta origen donde leerá los archivos:")
+    }
+    { ToolButtonAccionOrigen ToolButton
+      MoveScaled(61,16,28,4)
+      Text = ("Elige directorio de Origen")
+      Picture = Picture["icon:/16/directory"]
+      Border = True
+    }
+    { TextBoxAccionOrigen TextBox
+      MoveScaled(13,11,76,4)
+      Background = Color.LightBackground
+      ReadOnly = True
+    }
+    { CheckBoxUserHomeOrigen CheckBox
+      MoveScaled(14,16,46,4)
+      AutoResize = True
+    }
+    { TextLabel2 TextLabel
+      MoveScaled(5,22,80,10)
+      Text = ("Nota:<br>Si el directorio origen no existe, buscara en el directorio /home/usuario/Descargas")
+    }
+    Index = 1
+    Text = ("Reglas")
+    { gridReglas GridView
+      MoveScaled(1,2,91,42)
+    }
+    Index = 2
+    Text = ("Crear")
+    { label2 Label
+      MoveScaled(-2,4,19,4)
+      Text = ("Nombre Regla:")
+      Alignment = Align.Right
+    }
+    { TextBoxNombreRegla TextBox
+      MoveScaled(18,4,64,4)
+    }
+    { label3 Label
+      MoveScaled(4,10,41,3)
+      Text = ("Extensiones de archivos a los que afectará:")
+      Alignment = Align.Left
+    }
+    { TextBoxExtensiones TextBox
+      MoveScaled(46,9,36,4)
+      ToolTip = ("Usando el punto y coma (;) separamos las extensiones: jpg;bmp;png")
+    }
+    { Label4 Label
+      MoveScaled(8,16,16,4)
+      Text = ("Acción a realizar:")
+    }
+    { ComboBoxAccion ComboBox
+      MoveScaled(25,16,19,4)
+      ReadOnly = True
+    }
+    { LabelTextoAccion Label
+      MoveScaled(3,20,21,4)
+      Text = ("Directorio destino:")
+      Alignment = Align.Right
+    }
+    { TextBoxAccionDestino TextBox
+      MoveScaled(8,24,66,4)
+      Background = Color.LightBackground
+      ReadOnly = True
+    }
+    { ToolButtonAccion ToolButton
+      MoveScaled(61,28,30,4)
+      Text = ("Elige directorio de Destino")
+      Picture = Picture["icon:/16/directory"]
+      Border = True
+    }
+    { CheckBoxUserHome CheckBox
+      MoveScaled(13,28,30,4)
+      AutoResize = True
+      Value = CheckBox.True
+    }
+    { ToggleButtonAnadir ToolButton
+      MoveScaled(38,36,24,7)
+      Text = ("Añadir Nueva Regla")
+      Picture = Picture["icon:/16/ok"]
+      Border = True
+    }
+    Index = 0
+  }
+  { PictureBox1 PictureBox
+    MoveScaled(1,1,8,11)
+    Picture = Picture["OrganizaCarpetas.png"]
+    Stretch = True
+  }
+  { ToolButtonEjecutar ToolButton
+    MoveScaled(83,1,10,8)
+    ToolTip = ("Realizar la Clasificación y Ordenación de Ficheros")
+    Picture = Picture["icon:/48/exec"]
+    Border = True
+  }
+  { TextLabel1 TextLabel
+    MoveScaled(83,9,10,4)
+    ToolTip = ("ejecutar: clasificar y organizar carpeta de Descargas")
+    Text = ("Ejecutar")
+    Alignment = Align.Center
+  }
+}

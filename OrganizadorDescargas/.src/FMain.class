@@ -1,0 +1,329 @@
+' Gambas class file
+
+' basado en:
+'http://www.taringa.net/posts/info/15420574/Quieres-Organizar-la-Carpeta-Descargas-Repleta-de-Archivos.html
+'http://www.taringa.net/posts/linux/7001177/Como-tener-organizadas-nuestras-descargas-EDIT.html
+'http://ubuntulife.wordpress.com/2010/09/13/tip-organizar-de-manera-automatica-el-escritorio/
+
+Public Sub _new()
+  
+End
+
+Public Sub Form_Open()
+  
+  Dim SwitchStrategyCrearComandotmp As New SwitchStrategyCrearComando
+  Dim a As Integer
+  
+  ModuleUpdate.comprobar("OrganizadorDescarga", Application.Version, "http://clasificaryordenar.blogspot.com.es/2014/01/version.html", "no mensaje")
+  'ruta inialmente de origen de descarga....
+  
+  Configuracion.rutaOrigen = User.home & "/" & ("Descargas")
+  TextBoxAccionOrigen.text = Configuracion.rutaOrigen
+  
+  Label1.text = "<h3>Organizador de Descargas v." & Application.Version & "</h3>Autor: Julio Sánchez Berro<br>Licencia: GPL 3.0 <br><font color =\"blue\"><u>www.jsbsan.blogspot.com</u></font><br>"
+  
+  'comandos que se pueden realizar..
+  ' El metodo SwitchStrategyCrearComandotmp.listaComando() devuelve la lista de comandos que es reconocida por el programa
+  For a = 0 To SwitchStrategyCrearComandotmp.listaComando().count - 1
+    ComboBoxAccion.Add(SwitchStrategyCrearComandotmp.listaComando()[a])
+  Next
+  
+  Me.center  
+  DefinirGridReglas() 
+  'cargar datos desde la configuración.....
+  cargarDatos()
+  CheckBoxUserHome.text = ("Quitar la ruta del usuario (") & User.Home & ")"
+  CheckBoxUserHomeOrigen.text = ("Quitar la ruta del usuario (") & User.Home & ")"
+  
+End
+
+''--------------------------------------------------------------------
+'' subrutinas de programacion
+''--------------------------------------------------------------------
+
+Public Sub cargarDatos()
+  
+  Dim linea As String
+  'comprobar existencia de la carpeta de datos
+  'y si no existe la crea
+  
+  If Exist(User.Home & "/.OrganizadorDescargas") Then 
+    'existe
+  Else
+    'no existe, la creo
+    Mkdir User.Home & "/.OrganizadorDescargas"
+  Endif
+  
+  'comprobar si existe el archivo de datos, sino lo crea
+  If Exist(User.Home & "/.OrganizadorDescargas/reglas.dat") Then 
+    'existe
+  Else
+    'no existe, la creo
+    Copy "reglas.dat" To User.Home & "/.OrganizadorDescargas/reglas.dat"
+    'File.Save(User.Home & "/.OrganizadorDescargas/reglas.dat", "") 'lo creo vacio
+  Endif
+  
+  'leo todas las lineas de los datos
+  
+  For Each linea In Split(File.Load(User.Home & "/.OrganizadorDescargas/reglas.dat"), "\n")
+    AnadeGridviewReglas(linea) 
+  Next
+  
+End
+
+''--------------------------------------------------------------------
+'' subrutinas relativas al formulario
+''--------------------------------------------------------------------
+
+Public Sub Label1_MouseDown()
+  
+  Desktop.Open("http://clasificaryordenar.blogspot.com.es/")
+  
+End
+
+Public Sub DefinirGridReglas() 
+  
+  With gridReglas 
+    .header = 3 
+    .rows.count = 0 
+    .columns.count = 6
+    .Columns[0].title = ("Nombre")
+    .Columns[1].title = ("Carpeta Destino")
+    .Columns[2].title = ("Extensiones")
+    .Columns[3].title = ("Acción")
+    .Columns[4].title = ("Edita")
+    .Columns[5].title = ("Borra")
+    .Columns[0].width = 150
+    .Columns[1].width = 240
+    .Columns[2].width = 80
+    .Columns[3].width = 55
+    .Columns[4].width = 42
+    .Columns[5].width = 42
+    .font.name = "Sans" 
+    .font.size = 8
+    .Background = 16777215 
+    .Foreground = 0 
+  End With 
+  
+End 
+
+Public Sub AnadeGridviewReglas(frase As String)
+  
+  Dim palabras As String[]
+  
+  palabras = Split(frase, gb.Tab)
+  If palabras.count <> 0 Then 
+    gridReglas.rows.count += 1
+    
+    gridReglas[gridReglas.rows.count - 1, 0].text = palabras[0] 'nombre
+    gridReglas[gridReglas.rows.count - 1, 1].text = palabras[1] 'carpeta destino
+    gridReglas[gridReglas.rows.count - 1, 2].text = palabras[2] 'extensiones
+    gridReglas[gridReglas.rows.count - 1, 3].text = palabras[3] 'accion
+    gridReglas[gridReglas.rows.count - 1, 4].Picture = Picture["icon:/16/edit"]
+    gridReglas[gridReglas.rows.count - 1, 5].Picture = Picture["icon:/16/erase"]
+    
+  Else
+    
+    'linea vacia del fichero
+    '   gridReglas[gridReglas.rows.count - 1, 4].Picture = Picture["icon:/16/edit"]
+    '   gridReglas[gridReglas.rows.count - 1, 5].Picture = Picture["icon:/16/erase"]
+  Endif
+  
+End
+
+Public Sub ToolButtonAccion_Click()
+  
+  Dim ruta As String
+  
+  If Dialog.SelectDirectory() Then 
+    'cancelada
+  Else
+    If CheckBoxUserHome.Value = True Then 
+      ruta = Mid$(Dialog.path, String.Len(User.Home) + 2, String.Len(Dialog.path))
+    Else
+      ruta = Dialog.Path
+    Endif
+    TextBoxAccionDestino.text = ruta
+    
+  Endif
+  
+End
+
+Public Sub CheckBoxUserHome_Click()
+  
+  'Print "he dado"
+  
+  If CheckBoxUserHome.Value = True Then 
+    Debug "activado"
+    If TextBoxAccionDestino.text <> "" Then 
+      If InStr(TextBoxAccionDestino.text, User.home) <> 0 Then 
+        TextBoxAccionDestino.text = Mid$(TextBoxAccionDestino.text, String.Len(User.Home) + 2, String.Len(TextBoxAccionDestino.text))
+      Endif
+    Endif
+    
+  Else
+    '   Print "desactivado"
+    If TextBoxAccionDestino.text <> "" Then 
+      If InStr(TextBoxAccionDestino.text, User.home) = 0 Then 
+        TextBoxAccionDestino.text = User.Home & "/" & TextBoxAccionDestino.text
+        
+      Endif
+    Endif
+    
+  Endif
+  
+End
+
+Public Sub CheckBoxUserHomeOrigen_Click()
+  
+  'Print "he dado"
+  
+  If CheckBoxUserHomeOrigen.Value = True Then 
+    Print "activado"
+    If TextBoxAccionOrigen.text <> "" Then 
+      If InStr(TextBoxAccionOrigen.text, User.home) <> 0 Then 
+        TextBoxAccionOrigen.text = Mid$(TextBoxAccionOrigen.text, String.Len(User.Home) + 2, String.Len(TextBoxAccionOrigen.text))
+        Configuracion.rutaOrigen = TextBoxAccionOrigen.text
+      Endif
+    Endif
+    
+  Else
+    'Print "desactivado"
+    If TextBoxAccionOrigen.text <> "" Then 
+      If InStr(TextBoxAccionOrigen.text, User.home) = 0 Then 
+        TextBoxAccionOrigen.text = User.Home & "/" & TextBoxAccionOrigen.text
+        Configuracion.rutaOrigen = TextBoxAccionOrigen.text
+      Endif
+    Endif
+    
+  Endif
+  
+End
+
+Public Sub ToggleButtonAnadir_Click()
+  
+  Dim nuevaRegla As String
+  Dim ReglasArchivo As String
+  'abro el archivo de datos
+  'y añado la informacion
+  ReglasArchivo = File.Load(User.Home & "/.OrganizadorDescargas/reglas.dat")
+  
+  If ComboBoxAccion.text = ("Borrar") Then 
+    TextBoxAccionDestino.text = ("Borrado definitivo, Cuidado: NO se envia a papelera")
+  Endif
+  
+  nuevaRegla = TextBoxNombreRegla.Text & gb.tab & TextBoxAccionDestino.text & gb.tab & Replace$(Replace$(Replace(Replace(TextBoxExtensiones.Text, ".", ""), "*", ""), " ", ""), ",", ";") & gb.Tab & ComboBoxAccion.text & "\n"
+  
+  File.Save(User.Home & "/.OrganizadorDescargas/reglas.dat", ReglasArchivo & nuevaRegla)
+  
+  If ToggleButtonAnadir.text = ("Guardar Cambios") Then 
+    Message.Info(("Modificada la regla"))
+    ToggleButtonAnadir.text = ("Añadir Nueva Regla")
+  Else
+    
+    Message.Info(("Añadida nueva regla"))
+  Endif
+  TextBoxNombreRegla.Text = ""
+  TextBoxAccionDestino.text = ""
+  TextBoxExtensiones.Text = ""
+  
+  TabStripOrganizador.index = 0
+  TabStripOrganizador_Click()
+  
+End
+
+Public Sub TabStripOrganizador_Click()
+  
+  DefinirGridReglas() 
+  'cargar datos desde la configuración.....
+  cargarDatos()
+  
+End
+
+Public Sub gridReglas_Click()
+  
+  Dim ReglasArchivo As String
+  Dim contador As Integer
+  Dim ReglasArchivoReconstruido As String
+  Dim linea As String
+  'echo click en grid, 
+  'si es la columna 5 es borrar linea
+  
+  If gridReglas.Column = 5 Then 
+    'borrado de fila...
+    'leo los datos, y los voy añadiendo menos la linea donde ha hecho click
+    ' Print gridReglas.row
+    
+    ReglasArchivo = File.Load(User.Home & "/.OrganizadorDescargas/reglas.dat")
+    contador = -1
+    For Each linea In Split(ReglasArchivo, "\n")
+      contador += 1
+      
+      If gridReglas.row = contador Then 
+        'no añadir, para que se borre...
+      Else
+        If linea <> "" Then 
+          ReglasArchivoReconstruido &= linea & "\n"  
+        Endif
+      Endif
+      
+    Next
+    File.Save(User.Home & "/.OrganizadorDescargas/reglas.dat", ReglasArchivoReconstruido)
+    
+    'volver a rellenar...
+    TabStripOrganizador_Click()
+    Return 
+  Endif
+  
+  'si es columna 4 editar registro...
+  If gridReglas.Column = 4 Then 
+    TextBoxNombreRegla.Text = gridReglas[gridReglas.row, 0].text 
+    TextBoxAccionDestino.text = gridReglas[gridReglas.row, 1].text 
+    TextBoxExtensiones.Text = gridReglas[gridReglas.row, 2].text 
+    ComboBoxAccion.text = gridReglas[gridReglas.row, 3].text 
+    ToggleButtonAnadir.text = ("Guardar Cambios")
+    'borrado de la linea actual...
+    gridReglas.Column = 5
+    gridReglas_Click()
+    TabStripOrganizador.Index = 1
+    
+  Endif
+  
+End
+
+Public Sub ToolButtonEjecutar_Click()
+  
+  AplicarComandos.Clasificar_Organizar()
+  
+End
+
+Public Sub TextLabel1_MouseDown()
+  
+  ToolButtonEjecutar_Click()
+  
+End
+
+Public Sub ToolButtonUpdate_Click()
+  
+  'ModuleUpdate.comprobar("OrganizadorDescarga", Application.Version, "http://clasificaryordenar.blogspot.com.es/2014/01/version.html", "no mensaje")
+  ModuleUpdate.comprobar("OrganizadorDescarga", Application.Version, "http://clasificaryordenar.blogspot.com.es/2014/01/version.html")
+  
+End
+
+Public Sub ToolButtonAccionOrigen_Click()
+  
+  Dim ruta As String
+  
+  If Dialog.SelectDirectory() Then 
+    'cancelada
+  Else
+    If CheckBoxUserHomeOrigen.Value = True Then 
+      ruta = Mid$(Dialog.path, String.Len(User.Home) + 2, String.Len(Dialog.path))
+    Else
+      ruta = Dialog.Path
+    Endif
+    TextBoxAccionOrigen.text = ruta
+    Configuracion.rutaOrigen = ruta
+  Endif
+  
+End

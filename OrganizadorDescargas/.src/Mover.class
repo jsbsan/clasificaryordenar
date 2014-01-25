@@ -1,0 +1,45 @@
+' Gambas class file
+
+Inherits Comando
+
+Public Sub ejecutar()
+  
+  Dim formularioMensaje As New FormMensajes
+  Dim palabra As String
+  Dim textoSalidaComando As String
+  Dim textoSalidaAcumuladoComando As String
+  Dim lineaComando As String
+  Dim ruta As String
+  
+  'Directorio Destino....
+  Debug "Pruebo si existe: ", Super.RutaDestino
+  If Exist(Super.RutaDestino) Then 
+    'existe la ruta no hago nada
+    ruta = Super.RutaDestino
+  Else
+    'no existe... la creo para que no de error al mover el archivo...
+    ruta = "\"" & User.home & "/" & Super.RutaDestino & "\""
+    If Exist(User.home & "/" & Super.RutaDestino) Then 
+      'existe ruta en user.home
+    Else
+      Shell "mkdir " & ruta Wait 'creo la ruta pero en User.Home
+    Endif
+    ruta = User.home & "/" & Super.RutaDestino
+  Endif
+  
+  For Each palabra In Super.extensiones
+    lineaComando = "mv " & Replace(Configuracion.rutaOrigen, " ", "\\ ") & "/*." & palabra & " " & Replace$(ruta, " ", "\\ ")
+    Debug "Linea de comando que ejecuto: "; lineaComando
+    Shell lineaComando To textoSalidaComando 
+    textoSalidaAcumuladoComando &= textoSalidaComando
+  Next
+  
+  If textoSalidaAcumuladoComando = "" Then 
+    'no ha habido mensajes...
+  Else
+    'mostrar información de los mensajes que han aparecido
+    formularioMensaje.TextoMensaje(textoSalidaAcumuladoComando)
+    formularioMensaje.ShowModal()
+  Endif
+  
+End

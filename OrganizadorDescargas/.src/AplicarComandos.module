@@ -1,0 +1,51 @@
+' Gambas module file
+
+Private listaComando As Comando[] 'lista de comandos, de las reglas
+Private SelectorEstrategias As New SwitchStrategyCrearComando
+
+Public Sub Clasificar_Organizar()
+  
+  Dim comandoTmp As New Comando
+  Dim palabras As New String[]
+  Dim linea As String
+  
+  'creo una lista de comandos nueva
+  listaComando = New Comando[]
+  
+  'Mejorado en la version 0.0.5, cuando se crea la instancia de SwitchStrategyCrearComando,en el propio constructor se añaden las estrategias existentes
+  'lista de estrategias de crear comandos diponibles...
+  ' GenerarListaEstrategiasCrearComandosDisponibles()
+  
+  'lectura del fichero de datos
+  'crear listado de comandos 
+  '     por cada linea del fichero de datos, se crea un comando con sus caracteristicas
+  For Each linea In Split(File.Load(User.Home & "/.OrganizadorDescargas/reglas.dat"), "\n")
+    palabras = Split(linea, gb.Tab)
+    If palabras.count <> 0 Then 
+      comandoTmp = SelectorEstrategias.operar(palabras[3], linea) 'palabras[3] es la accion, al enviarla como parametro da listaEstrategiasDisponibles duelve la Estrategia
+      'ejecuto el comando
+      comandoTmp.ejecutar()
+    Endif
+  Next
+  
+  Message.Info(("Terminado de ejecutar la clasificación y ordenación de ficheros"))
+  
+End
+
+'Mejora aplicando Patron Switch Strategy
+Public Function GenerarListaEstrategiasCrearComandosDisponibles() 
+  
+  '' ya no hace falta este código ya que ene le constructor esta indicado la creacion de los comandos...
+  '''NOTE: Listado de Estrategias disponibles:
+  'Dim estrategiaCopiartmp As New EstrategiaCopiar
+  'Dim estrategiaMovertmp As New EstrategiaMover
+  'Dim estrategiaBorrartmp As New EstrategiaBorrar
+  '...
+  'añado las distitas estrategias...
+  'SelectorEstrategias.add(estrategiaCopiartmp)
+  'SelectorEstrategias.add(EstrategiaMovertmp)
+  'SelectorEstrategias.add(EstrategiaBorrartmp)
+  '... 
+  '''NOTE: Si hubieran mas estrategias se añadirian continuacion
+  
+End

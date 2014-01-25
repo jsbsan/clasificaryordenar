@@ -1,0 +1,51 @@
+' Gambas class file
+
+Public Sub ejecutar()
+  
+End
+
+'propiedades de los comandos....
+
+Property RutaDestino As String
+Private hrutaDestino As String
+
+Property extensiones As String[]
+Private hextensiones As New String[]
+Property nombre As String
+Private hnombre As String
+
+Private Function nombre_Read() As String
+  
+  Return hnombre
+  
+End
+
+Private Sub nombre_Write(Value As String)
+  
+  hnombre = Value
+  
+End
+
+Private Function rutaDestino_Read() As String
+  
+  Return hrutaDestino
+  
+End
+
+Private Sub rutaDestino_Write(Value As String)
+  
+  hrutaDestino = Value
+  
+End
+
+Private Function extensiones_Read() As String[]
+  
+  Return hextensiones
+  
+End
+
+Private Sub extensiones_Write(Value As String[])
+  
+  hextensiones = Value
+  
+End
