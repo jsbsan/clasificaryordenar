@@ -12,7 +12,7 @@
   }
   { TabStripOrganizador TabStrip
     MoveScaled(1,13,93,48)
-    Count = 3
+    Count = 4
     Index = 0
     Text = ("Ruta Origen")
     { ToolButtonUpdate ToolButton
@@ -101,6 +101,13 @@
       MoveScaled(38,36,24,7)
       Text = ("Añadir Nueva Regla")
       Picture = Picture["icon:/16/ok"]
+      Border = True
+    }
+    Index = 3
+    Text = ("Otros")
+    { ToolButtonRecuperarArchivoInicial ToolButton
+      MoveScaled(3,3,39,6)
+      Text = ("Recuperar el archivo inicial de Reglas")
       Border = True
     }
     Index = 0

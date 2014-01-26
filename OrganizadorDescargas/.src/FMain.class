@@ -20,7 +20,7 @@ Public Sub Form_Open()
   Configuracion.rutaOrigen = User.home & "/" & ("Descargas")
   TextBoxAccionOrigen.text = Configuracion.rutaOrigen
   
-  Label1.text = "<h3>Organizador de Descargas v." & Application.Version & "</h3>Autor: Julio Sánchez Berro<br>Licencia: GPL 3.0 <br><font color =\"blue\"><u>www.jsbsan.blogspot.com</u></font><br>"
+  Label1.text = "<h3>Organizador de Descargas v." & Application.Version & "</h3>Autor: Julio Sánchez Berro<br>Licencia: GPL 3.0 <br><font color =\"blue\"><u>http://clasificaryordenar.blogspot.com.es/</u></font><br>"
   
   'comandos que se pueden realizar..
   ' El metodo SwitchStrategyCrearComandotmp.listaComando() devuelve la lista de comandos que es reconocida por el programa
@@ -219,6 +219,7 @@ Public Sub ToggleButtonAnadir_Click()
   If ToggleButtonAnadir.text = ("Guardar Cambios") Then 
     Message.Info(("Modificada la regla"))
     ToggleButtonAnadir.text = ("Añadir Nueva Regla")
+    TabStripOrganizador[2].text = ("Crear")
   Else
     
     Message.Info(("Añadida nueva regla"))
@@ -227,7 +228,7 @@ Public Sub ToggleButtonAnadir_Click()
   TextBoxAccionDestino.text = ""
   TextBoxExtensiones.Text = ""
   
-  TabStripOrganizador.index = 0
+  TabStripOrganizador.index = 1
   TabStripOrganizador_Click()
   
 End
@@ -282,10 +283,11 @@ Public Sub gridReglas_Click()
     TextBoxExtensiones.Text = gridReglas[gridReglas.row, 2].text 
     ComboBoxAccion.text = gridReglas[gridReglas.row, 3].text 
     ToggleButtonAnadir.text = ("Guardar Cambios")
+    TabStripOrganizador[2].text = ("Editando...")
     'borrado de la linea actual...
     gridReglas.Column = 5
     gridReglas_Click()
-    TabStripOrganizador.Index = 1
+    TabStripOrganizador.Index = 2
     
   Endif
   
@@ -325,5 +327,23 @@ Public Sub ToolButtonAccionOrigen_Click()
     TextBoxAccionOrigen.text = ruta
     Configuracion.rutaOrigen = ruta
   Endif
+  
+End
+
+Public Sub ToolButtonRecuperarArchivoInicial_Click()
+  
+  Dim seguro As Integer = 0
+  'borro el actual archivo
+  'comprobar si existe el archivo de datos, sino lo crea
+  If Exist(User.Home & "/.OrganizadorDescargas/reglas.dat") Then 
+    seguro = Message.Question(("Se borraran todas las reglas que haya modificado"), ("No, cancelar"), ("Si, continuar"))
+    If seguro = 2 Then 
+      Kill User.Home & "/.OrganizadorDescargas/reglas.dat"
+      'copio
+      cargarDatos()
+    Endif
+  Endif
+  TabStripOrganizador.index = 1
+  TabStripOrganizador_Click()
   
 End
