@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: AplicarComandos.module:31
+#: AplicarComandos.module:32
 msgid "Terminado de ejecutar la clasificación y ordenación de ficheros"
 msgstr ""
 

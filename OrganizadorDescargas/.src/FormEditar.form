@@ -1,0 +1,23 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,86,53)
+  Resizable = False
+  { Editor1 Editor
+    MoveScaled(2,5,82,40)
+  }
+  { ToolButtonGuardarSalir ToolButton
+    MoveScaled(66,46,18,4)
+    Text = ("Guardar y Cerrar")
+    Border = True
+  }
+  { ToolButtonSalir ToolButton
+    MoveScaled(34,46,18,4)
+    Text = ("Salir, sin guardar")
+    Border = True
+  }
+  { LabelNombreArchivo Label
+    MoveScaled(2,1,82,4)
+    Text = ("Label1")
+  }
+}

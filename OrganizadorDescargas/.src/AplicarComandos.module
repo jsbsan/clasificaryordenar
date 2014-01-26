@@ -28,7 +28,11 @@ Public Sub Clasificar_Organizar()
     Endif
   Next
   
-  Message.Info(("Terminado de ejecutar la clasificación y ordenación de ficheros"))
+  If Configuracion.modo = "consola" Then
+    Print ("Terminado de ejecutar la clasificación y ordenación de ficheros")
+  Else
+    Message.Info(("Terminado de ejecutar la clasificación y ordenación de ficheros"))
+  Endif
   
 End
 

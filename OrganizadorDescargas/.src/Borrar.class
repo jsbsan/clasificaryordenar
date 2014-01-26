@@ -18,7 +18,10 @@ Public Sub ejecutar()
     
     Debug "Linea de comando que ejecuto: "; lineaComando
     
-    respuesta = Message.Question(("El borrado será definitivo:" & "\n" & lineaComando & "\n, ¿esta seguro?"), ("Si, borrar"), ("No, cancelar"))  
+    If Configuracion.modo = "consola" Then
+    Else
+      respuesta = Message.Question(("El borrado será definitivo:" & "\n" & lineaComando & "\n, ¿esta seguro?"), ("Si, borrar"), ("No, cancelar"))  
+    Endif
     
     If respuesta <> 2 Then
       Shell lineaComando To textoSalidaComando 
@@ -30,8 +33,11 @@ Public Sub ejecutar()
     'no ha habido mensajes...
   Else
     'mostrar información de los mensajes que han aparecido
-    formularioMensaje.TextoMensaje(textoSalidaAcumuladoComando)
-    formularioMensaje.ShowModal()
+    If Configuracion.modo = "consola" Then
+    Else
+      formularioMensaje.TextoMensaje(textoSalidaAcumuladoComando)
+      formularioMensaje.ShowModal()
+    Endif
   Endif
-  
+
 End

@@ -20,3 +20,18 @@ Private Sub rutaOrigen_Write(Value As String)
   hrutaOrigen = Value
   
 End
+
+Property modo As String
+Private hmodo As String
+
+Private Function modo_Read() As String
+  
+  Return hmodo
+  
+End
+
+Private Sub modo_Write(Value As String)
+  
+  hmodo = Value
+  
+End

@@ -1,9 +1,9 @@
 # Gambas Project File 3.0
 # Compiled with Gambas 3.5.2
 Title=Organizador Carpeta de Descargas
-Startup=FMain
+Startup=main
 Icon=OrganizaCarpetas.png
-Version=0.0.6
+Version=0.1.0
 Component=gb.image
 Component=gb.qt4
 Component=gb.form
@@ -17,12 +17,13 @@ Authors="Julio Sánchez Berro"
 TabSize=2
 Translate=1
 Language=es
+ExecPath=/home/minino/Dropbox/trabajos/OrganizadorDescargas.gambas
 SourcePath=/home/minino/Dropbox/trabajos
 Maintainer=Julio Sánchez Berro
 Address=jusabejusabe@gmail.com
 Url=http://www.jsbsan.blogspot.com
 License=General Public License
-PackageName=organizadordescargas-0.0.5
+PackageName=organizadordescargas-0.1.0
 CreateEachDirectory=1
 Packager=1
 Systems=debian
