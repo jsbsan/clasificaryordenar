@@ -1,3 +1,6 @@
+* Sun Jan 26 2014 Julio Sánchez Berro <jusabejusabe@gmail.com> 0.1.3
+- Añado parametro de la propia ruta Origen en modo consola
+
 * Sun Jan 26 2014 Julio Sánchez Berro <jusabejusabe@gmail.com> 0.1.0
 - Mejoras: ejecutar en modo consola con parametro -c
 

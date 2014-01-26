@@ -29,7 +29,7 @@ Public Sub ejecutar()
   
   For Each palabra In Super.extensiones
     lineaComando = "cp  " & Replace(Configuracion.rutaOrigen, " ", "\\ ") & "/*." & palabra & " " & Replace(ruta, " ", "\\ ")
-    Debug "Linea de comando que ejecuto: "; lineaComando
+    Print "Linea de comando que ejecuto: "; lineaComando
     Shell lineaComando To textoSalidaComando 
     textoSalidaAcumuladoComando &= textoSalidaComando
   Next

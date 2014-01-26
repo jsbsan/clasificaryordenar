@@ -16,7 +16,7 @@ Public Sub ejecutar()
   For Each palabra In Super.extensiones
     lineaComando = "rm " & Configuracion.rutaOrigen & "/" & "*." & palabra 
     
-    Debug "Linea de comando que ejecuto: "; lineaComando
+    Print "Linea de comando que ejecuto: "; lineaComando
     
     If Configuracion.modo = "consola" Then
     Else
@@ -39,5 +39,5 @@ Public Sub ejecutar()
       formularioMensaje.ShowModal()
     Endif
   Endif
-
+  
 End

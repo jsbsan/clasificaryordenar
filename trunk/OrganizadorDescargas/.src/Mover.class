@@ -29,7 +29,7 @@ Public Sub ejecutar()
   
   For Each palabra In Super.extensiones
     lineaComando = "mv " & Replace(Configuracion.rutaOrigen, " ", "\\ ") & "/*." & palabra & " " & Replace$(ruta, " ", "\\ ")
-    Debug "Linea de comando que ejecuto: "; lineaComando
+    Print "Linea de comando que ejecuto: "; lineaComando
     Shell lineaComando To textoSalidaComando 
     textoSalidaAcumuladoComando &= textoSalidaComando
   Next
@@ -45,5 +45,5 @@ Public Sub ejecutar()
       formularioMensaje.ShowModal()
     Endif
   Endif
-
+  
 End

@@ -1,7 +1,8 @@
 ' Gambas module file
 
 Public Sub Main()
-  
+
+  Dim rutaOrigen As String
   Dim argumento As String
   Dim lista As New String[]
   Dim contador As Integer
@@ -22,7 +23,16 @@ Public Sub Main()
   Else
     If lista[1] = "-c" Then 
       'modo consola
-      Print "Clasificador y Organizador de Descargas en modo consola"
+      Print "***** Clasificador y Organizador de Descargas en modo consola ****"
+      Print "***** Version: " & Application.Version & "                    ****"
+      
+      Try rutaOrigen = lista[2]
+      If Error Then 
+        Configuracion.rutaOrigen = User.home & "/" & ("Descargas")
+      Else
+        Configuracion.rutaOrigen = rutaOrigen
+      Endif
+      Print "***** Ruta de Origen: " & Configuracion.rutaOrigen & "   ****"
       Configuracion.modo = "consola"
       AplicarComandos.Clasificar_Organizar()
     Else
