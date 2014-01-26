@@ -41,8 +41,8 @@
       AutoResize = True
     }
     { TextLabel2 TextLabel
-      MoveScaled(5,22,80,10)
-      Text = ("Nota:<br>Si el directorio origen no existe, buscara en el directorio /home/usuario/Descargas<br><br>\nPara ejecutarlo en modo consola, use el parametro -c:<br>\n./OrganizadorDescargas.gambas -c")
+      MoveScaled(5,20,81,14)
+      Text = ("Nota:<br>Si el directorio origen no existe, buscara en el directorio /home/usuario/Descargas<br><br>\nPara ejecutarlo en modo consola, use el parametro -c:<br><b>OrganizadorDescargas -c RutaOrigen</b><br>Siendo RutaOrigen por ejemplo /home/usuario/Descargas")
     }
     Index = 1
     Text = ("Reglas")
