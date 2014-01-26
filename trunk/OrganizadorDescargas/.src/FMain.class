@@ -5,6 +5,11 @@
 'http://www.taringa.net/posts/linux/7001177/Como-tener-organizadas-nuestras-descargas-EDIT.html
 'http://ubuntulife.wordpress.com/2010/09/13/tip-organizar-de-manera-automatica-el-escritorio/
 
+Private CancelarRegla As String
+Private CancelarDestino As String
+Private CancelarExtension As String
+Private CancelarOrden As String
+
 Public Sub _new()
   
 End
@@ -256,6 +261,7 @@ Public Sub gridReglas_Click()
     ' Print gridReglas.row
     
     ReglasArchivo = File.Load(User.Home & "/.OrganizadorDescargas/reglas.dat")
+    
     contador = -1
     For Each linea In Split(ReglasArchivo, "\n")
       contador += 1
@@ -282,11 +288,22 @@ Public Sub gridReglas_Click()
     TextBoxAccionDestino.text = gridReglas[gridReglas.row, 1].text 
     TextBoxExtensiones.Text = gridReglas[gridReglas.row, 2].text 
     ComboBoxAccion.text = gridReglas[gridReglas.row, 3].text 
+    
+    CancelarRegla = TextBoxNombreRegla.Text
+    CancelarDestino = TextBoxAccionDestino.text
+    CancelarExtension = TextBoxExtensiones.Text 
+    CancelarOrden = ComboBoxAccion.text
+    
     ToggleButtonAnadir.text = ("Guardar Cambios")
     TabStripOrganizador[2].text = ("Editando...")
     'borrado de la linea actual...
     gridReglas.Column = 5
     gridReglas_Click()
+    ''TODO: boton CANCELAR
+    'quito visualizar este boton
+    ToolButtonCancelarEdicion.Visible = True
+    ToolButtonCancelarEdicion.Visible = True
+    
     TabStripOrganizador.Index = 2
     
   Endif
@@ -343,6 +360,33 @@ Public Sub ToolButtonRecuperarArchivoInicial_Click()
       cargarDatos()
     Endif
   Endif
+  TabStripOrganizador.index = 1
+  TabStripOrganizador_Click()
+  
+End
+
+Public Sub ToolButtonEditar_Click()
+  
+  FormEditar.ShowModal()
+  
+End
+
+Public Sub ToolButtonCancelarEdicion_Click()
+  
+  Dim nuevaRegla As String
+  
+  'quito visualizar este boton
+  nuevaRegla = CancelarRegla & gb.tab & CancelarDestino & gb.tab & Replace$(Replace$(Replace(Replace(CancelarExtension, ".", ""), "*", ""), " ", ""), ",", ";") & gb.Tab & CancelarOrden & "\n"
+  
+  File.Save(User.Home & "/.OrganizadorDescargas/reglas.dat", File.Load(User.Home & "/.OrganizadorDescargas/reglas.dat") & nuevaRegla)
+  
+  ToolButtonCancelarEdicion.Visible = False
+  ToggleButtonAnadir.text = ("Añadir Nueva Regla")
+  TabStripOrganizador[2].text = ("Crear")
+  TextBoxNombreRegla.Text = ""
+  TextBoxAccionDestino.text = ""
+  TextBoxExtensiones.Text = ""
+  
   TabStripOrganizador.index = 1
   TabStripOrganizador_Click()
   

@@ -1,0 +1,22 @@
+' Gambas class file
+
+Public Sub Form_Open()
+
+  LabelNombreArchivo.text = ("Archivo de Reglas:") & User.Home & "/.OrganizadorDescargas/reglas.dat"
+  Editor1.text = Replace(File.Load(User.Home & "/.OrganizadorDescargas/reglas.dat"), gb.tab, "<tab>")
+  Editor1.Highlight = Highlight.Html
+  
+End
+
+Public Sub ToolButtonSalir_Click()
+  
+  Me.Close()
+  
+End
+
+Public Sub ToolButtonGuardarSalir_Click()
+  
+  File.Save(User.Home & "/.OrganizadorDescargas/reglas.dat", Replace(Editor1.text, "<tab>", gb.tab))
+  Me.Close()
+  
+End

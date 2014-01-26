@@ -14,11 +14,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: Borrar.class:21
+#: Borrar.class:23
 msgid "Si, borrar"
 msgstr ""
 
-#: Borrar.class:21
+#: Borrar.class:23
 msgid "No, cancelar"
 msgstr ""
 

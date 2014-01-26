@@ -37,9 +37,13 @@ Public Sub ejecutar()
   If textoSalidaAcumuladoComando = "" Then 
     'no ha habido mensajes...
   Else
-    'mostrar información de los mensajes que han aparecido
-    formularioMensaje.TextoMensaje(textoSalidaAcumuladoComando)
-    formularioMensaje.ShowModal()
+    If Configuracion.modo = "consola" Then
+    Else
+      'mostrar información de los mensajes que han aparecido
+      
+      formularioMensaje.TextoMensaje(textoSalidaAcumuladoComando)
+      formularioMensaje.ShowModal()
+    Endif
   Endif
-  
+
 End

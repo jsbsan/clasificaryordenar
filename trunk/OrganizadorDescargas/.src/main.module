@@ -1,0 +1,34 @@
+' Gambas module file
+
+Public Sub Main()
+  
+  Dim argumento As String
+  Dim lista As New String[]
+  Dim contador As Integer
+  ' Print "Analizo argumentos:"
+  
+  For Each argumento In Application.Args
+    'añadimos todos los argumentos a un array de cadenas
+    lista.add(argumento)
+    'escribo los argumentos:
+    'Print "Nº "; contador; ": "; argumento
+    'contador += 1
+  Next
+  
+  If lista.count = 1 Then 
+    'sin parametros
+    'arranco modo visual
+    FMain.ShowModal()
+  Else
+    If lista[1] = "-c" Then 
+      'modo consola
+      Print "Clasificador y Organizador de Descargas en modo consola"
+      Configuracion.modo = "consola"
+      AplicarComandos.Clasificar_Organizar()
+    Else
+      Print "Parametro desconocido"
+    Endif
+    
+  Endif
+  
+End
